@@ -32,7 +32,7 @@ fi
 declare -A dir_aliases_map # Associative array holding dir-alias documentation strings.
 
 dir-alias() {
-   usage="Usage: dir-alias <shortcut_name> [<directory_path>] [-c <command_to_run>]"
+   usage="Usage: dir-alias <shortcut-name> [<directory-path>] [-c <command-to-run>]"
    #
    # This command creates both a shell function that changes to the directory
    # and a shell variable which contains the directory name (so you can use $
@@ -140,5 +140,13 @@ aliases() {
    echo "Directory aliases:"
    echo "=================="
    show-dir-aliases
+}
+
+un-dir-alias() {
+   # Usage: un-dir-alias <alias-name>
+
+   unset dir_aliases_map["$1"]
+   unset -f "$1"
+   unset "$1"
 }
 

@@ -9,7 +9,7 @@ alias name.
 
 ::
 
-   Usage: dir-alias <shortcut_name> [<directory_path>] [-c <command_to_run>]"
+   Usage: dir-alias <shortcut-name> [<directory-path>] [-c <command-to-run>]"
 
 The `dir-alias` command:
 
@@ -69,6 +69,9 @@ aliases, are marked with a "*" symbol after the alias name in the listing.
 
 The command `aliases` is also defined to list all the regular Bash aliases
 followed by all the aliases defined by `dir-aliases`, in a similar format.
+
+To unset the function, shell variable, and remove the alias from the list of
+directory aliases use `un-dir-alias <alias-name>`.
 
 Setup
 -----
