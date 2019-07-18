@@ -3,7 +3,7 @@
 dir-alias
 #########
 
-Fancier Bash aliases for commonly-used directories.  These do not
+Define fancier Bash aliases for commonly-used directories.  These do not
 conflict with ordinary Bash aliases except that only one can use any particular
 alias name.
 
@@ -21,7 +21,7 @@ The `dir-alias` command:
 
 * Exports the function and variable so they can be used in shell scripts.
 
-* Allows the use of previously-defined directory-aliases variables in the
+* Allows the use of previously-defined directory-alias variables in the
   definition of new ones.
 
 Usage
@@ -45,7 +45,8 @@ This is a `dir-alias` command that also has an optional command-string:
 
    dir_alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory'"
 
-These are `dir-alias` commands that work similar to regular Bash aliases.
+These are `dir-alias` commands that work similar to regular Bash aliases in that they
+do not perform a `cd` operation automatically.  The examples here also take argments.
 
 .. code-block:: bash
 
