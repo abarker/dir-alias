@@ -46,9 +46,12 @@ dir-alias() {
    # Previously-defined dir-alias aliases can be used in the definition of later
    # ones.  The definitions are exported so scripts can also use them.
    local hide_indicator cmd dirname alias_name alias_type
-   if [ "$1" == "" ] || [ "$2" == "" ]; then
+   if [ "$1" == "" ]; then
+      show-dir-aliases
+      return 0
+   elif [ "$2" == "" ]; then
       echo $usage
-      echo "At least two arguments must be passed to dir-alias."
+      echo "A single argument is not valid to pass to dir-alias ("$1")."
       return 1
    fi
 
@@ -94,16 +97,16 @@ dir-alias() {
       eval "$alias_name() { $cmd; }" # Define shell fun with given name.
       dir_aliases_map[$alias_name]="${alias_name}${hide_indicator} -c \"$cmd\""
    elif [ "$cmd" == "" ]; then
-      eval "$alias_name() { cd $dirname; }" # Define shell fun with the given name.
+      eval "$alias_name() { cd \"$dirname\"; }" # Define shell fun with the given name.
       dir_aliases_map[$alias_name]="${alias_name}${hide_indicator} -- $dirname"
    else
-      eval "$alias_name() { cd $dirname; $cmd; }" # Define shell fun with given name.
+      eval "$alias_name() { cd \"$dirname\"; $cmd; }" # Define shell fun with given name.
       dir_aliases_map[$alias_name]="${alias_name}${hide_indicator} -- $dirname -c \"$cmd\""
    fi
    export -f "$alias_name" # Export the function.
 
    # Define and export the shell variable.
-   eval export $alias_name="$dirname"
+   eval export $alias_name='"$dirname"' # Quoted to handle spaces in dir names.
 }
 
 show-dir-aliases() {

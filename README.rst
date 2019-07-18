@@ -7,6 +7,10 @@ Define fancier Bash aliases for commonly-used directories.  These do not
 conflict with ordinary Bash aliases except that only one can use any particular
 alias name.
 
+::
+
+   Usage: dir-alias <shortcut_name> [<directory_path>] [-c <command_to_run>]"
+
 The `dir-alias` command:
 
 * Defines the alias name as a shell function to `cd` to the directory.
@@ -57,15 +61,14 @@ do not perform a `cd` operation automatically.  The examples here also take argm
    # A dir-alias that acts an like ordinary Bash alias, on the rest of the command line.
    dir-alias ls -c "ls -a \$@"
 
-To display these aliases there are two new functions that work similar to calling
-`alias` with no arguments:
+To display all the aliases defined with `dir-alias` you can type `dir-alias`
+with no arguments.  The command will print out all the aliases defined by
+`dir_alias` in a neat format.  Any aliases which shadowed an existing command
+at the time it was defined, excluding shell functions or a regular Bash
+aliases, are marked with a "*" symbol after the alias name in the listing.
 
-* `show-dir-aliases`: List all the aliases defined by `dir_alias` in a neat format.
-  Any aliases which shadowed an existing command other than a shell function or a
-  regular Bash alias are marked with at "*" symbol after the alias name.
-
-* `aliases`: List all the regular Bash aliases followed by all the aliases defined
-  by `dir-alias`.
+The command `aliases` is also defined to list all the regular Bash aliases
+followed by all the aliases defined by `dir-aliases`, in a similar format.
 
 Setup
 -----
