@@ -3,23 +3,26 @@
 dir-alias
 #########
 
-Define fancier aliases in Bash for commonly-used directories.
+Fancier Bash aliases for commonly-used directories.  These do not
+conflict with ordinary Bash aliases except that only one can use any particular
+alias name.
 
 The `dir-alias` command:
 
 * Defines the alias name as a shell function to `cd` to the directory.
 
-* Defines the alias name as a shell variable to access the directory string easily.
+* Defines the alias name as a shell variable to access the directory-path
+  string easily.
 
-* Optionally takes an arbitrary command string after `-c` to run after
+* Optionally takes an arbitrary command string after `-c` to execute after
   performing the directory change.  (The directory argument is optional when a
-  command is passed in, so `dir-alias` can also be used like ordinary Bash
-  aliases.)
+  command is passed in.  The passed-in command can optionally take its own
+  arguments.)
 
 * Exports the function and variable so they can be used in shell scripts.
 
-* Allows the use of previously-defined directory aliases in the definition of
-  new ones.
+* Allows the use of previously-defined directory-aliases variables in the
+  definition of new ones.
 
 Usage
 -----
@@ -41,6 +44,17 @@ This is a `dir-alias` command that also has an optional command-string:
 .. code-block:: bash
 
    dir_alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory'"
+
+These are `dir-alias` commands that work similar to regular Bash aliases.
+
+.. code-block:: bash
+
+   dir-alias demo -c "echo first arg is \$1 and second arg is \$2"
+
+   demo a b # Prints out "first arg is a and second arg is b".
+
+   # A dir-alias that acts an like ordinary Bash alias, on the rest of the command line.
+   dir-alias ls -c "ls -a \$@"
 
 To display these aliases there are two new functions that work similar to calling
 `alias` with no arguments:
