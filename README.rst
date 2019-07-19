@@ -5,7 +5,8 @@ dir-alias
 
 Define fancier Bash aliases for commonly-used directories.  These do not
 conflict with ordinary Bash aliases except that only one can use any particular
-alias name.
+alias name.  This script makes use of the fact that functions and variables in
+Bash have distinct namespaces.
 
 ::
 
@@ -31,7 +32,7 @@ The `dir-alias` command:
 Usage
 -----
 
-This is a basic `dir-alias` usage:
+Here is a basic `dir-alias` usage:
 
 .. code-block:: bash
 
@@ -43,14 +44,16 @@ This is a basic `dir-alias` usage:
    # There is also a shell function defined to cd to the directory:
    proj # Executes a cd to ~/programming/my_project/proj_dir 
 
-This is a `dir-alias` command that also has an optional command-string:
+This is a `dir-alias` command with an optional command-string to execute after the `cd`:
 
 .. code-block:: bash
 
    dir_alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory'"
 
-These are `dir-alias` commands that work similar to regular Bash aliases in that they
-do not perform a `cd` operation automatically.  The examples here also take argments.
+Finally, here are some `dir-alias` commands that work similar to regular Bash
+aliases in that they are not assocated with a directory and so do not perform a
+`cd` operation automatically.  No shell variable is set in these cases.  The
+examples here also take argments.
 
 .. code-block:: bash
 
@@ -65,7 +68,7 @@ To display all the aliases defined with `dir-alias` you can type `dir-alias`
 with no arguments.  The command will print out all the aliases defined by
 `dir_alias` in a neat format.  Any aliases which shadowed an existing command
 at the time it was defined, excluding shell functions or a regular Bash
-aliases, are marked with a "*" symbol after the alias name in the listing.
+aliases, are marked with a ``*`` symbol after the alias name in the listing.
 
 The command `aliases` is also defined to list all the regular Bash aliases
 followed by all the aliases defined by `dir-aliases`, in a similar format.

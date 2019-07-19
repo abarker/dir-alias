@@ -29,7 +29,7 @@ fi
 # commands show-dir-aliases and aliases to display alias information.
 #
 
-declare -A dir_aliases_map # Associative array holding dir-alias documentation strings.
+DIR_ALIAS_PREFIX="dir_alias_info_" # Listing info is stored in vars with this prefix.
 
 dir-alias() {
    usage="Usage: dir-alias <shortcut-name> [<directory-path>] [-c <command-to-run>]"
@@ -57,9 +57,9 @@ dir-alias() {
 
    # Get the alias name.
    alias_name="$1"
-   unset -f $alias_name # A new shell function will be defined; delete old one.
-   unalias $alias_name 2>/dev/null # Remove any ordinary alias of the same name.
-   alias_type=$(type -t $alias_name)
+   unset -f "$alias_name" # A new shell function will be defined; delete old one.
+   unalias "$alias_name" 2>/dev/null # Remove any ordinary alias of the same name.
+   alias_type=$(type -t "$alias_name")
    if [ "$alias_type" != "function" ] && [ "$alias_type" != "alias" ] && [ "$alias_type" != "" ]; then
       hide_indicator="*"
    fi
@@ -92,21 +92,24 @@ dir-alias() {
       cmd="$2"
    fi
 
-   # Define and export the shell function.
+   # Define and export the shell function.  Info is stored in variables with
+   # prefix $DIR_ALIAS_PREFIX because Bash cannot export arrays.
    if [ "$dirname" == "" ]; then
       eval "$alias_name() { $cmd; }" # Define shell fun with given name.
-      dir_aliases_map[$alias_name]="${alias_name}${hide_indicator} -c \"$cmd\""
+      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -c \"$cmd\""'
    elif [ "$cmd" == "" ]; then
       eval "$alias_name() { cd \"$dirname\"; }" # Define shell fun with the given name.
-      dir_aliases_map[$alias_name]="${alias_name}${hide_indicator} -- $dirname"
+      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- \"$dirname\""'
    else
       eval "$alias_name() { cd \"$dirname\"; $cmd; }" # Define shell fun with given name.
-      dir_aliases_map[$alias_name]="${alias_name}${hide_indicator} -- $dirname -c \"$cmd\""
+      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- \"$dirname\" -c \"$cmd\""'
    fi
    export -f "$alias_name" # Export the function.
 
-   # Define and export the shell variable.
-   eval export $alias_name='"$dirname"' # Quoted to handle spaces in dir names.
+   # Define and export the shell variable if a directory name is associated with the command.
+   if [ "$dirname" != "" ]; then
+      eval export $alias_name='"$dirname"' # Quoted to handle spaces in dir names.
+   fi
 }
 
 show-dir-aliases() {
@@ -116,9 +119,14 @@ show-dir-aliases() {
    # commands (other than shell functions and ordinary aliases) are also marked
    # with a asterisk after the alias name.
 
-   local i sorted
-   # Get a sorted array of all the values in dir_aliases_map.
-   IFS=$'\n' sorted=($(sort <<<"${dir_aliases_map[*]}")) # Sort the strings.
+   # Get an array of all the info variables set for dir-alias aliases.
+   eval 'info_vars=(${!'"$DIR_ALIAS_PREFIX"'@})'
+   info_strings=()
+   for i in "${info_vars[@]}"; do
+      info_strings+=("$(eval "echo \$$i")")
+   done
+   # Get a sorted array of all the values.
+   IFS=$'\n' sorted=($(sort <<<"${info_strings[*]}")) # Sort the strings.
 
    for i in "${sorted[@]}"
    do
@@ -145,7 +153,7 @@ aliases() {
 un-dir-alias() {
    # Usage: un-dir-alias <alias-name>
 
-   unset dir_aliases_map["$1"]
+   unset ${DIR_ALIAS_PREFIX}$1
    unset -f "$1"
    unset "$1"
 }
