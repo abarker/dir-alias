@@ -86,6 +86,6 @@ source it in your `~/.bashrc` like this:
 
    source dir_alias_commands.bash
 
-After that command you can use `dir-alias` in your bashrc as well as in your
+After that command you can use `dir-alias` in your `.bashrc` as well as in your
 interactive shells.
 
