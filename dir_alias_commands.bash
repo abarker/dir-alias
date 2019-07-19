@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # This file must be sourced from Bash; it will not work if executed as a normal script.
 if [ "${BASH_SOURCE[0]}" -ef "$0" ]; then
     echo "Usage: source dir_aliases_commands.bash"
@@ -50,8 +51,8 @@ dir-alias() {
       show-dir-aliases
       return 0
    elif [ "$2" == "" ]; then
-      echo $usage
-      echo "A single argument is not valid to pass to dir-alias ("$1")."
+      echo "$usage"
+      echo "A single argument is not valid to pass to dir-alias ($1)."
       return 1
    fi
 
@@ -77,15 +78,15 @@ dir-alias() {
    cmd=""
    if [ "$1" != "" ]; then
       if [ "$1" != "-c" ]; then
-         echo $usage
+         echo "$usage"
          echo "A -c flag is required before the command string passed to dir-alias ('$alias_name')."
          return 1
       elif [ "$2" == "" ]; then
-         echo $usage
+         echo "$usage"
          echo "An empty command string was passed to the -c argument to dir-alias ('$alias_name')."
          return 1
       elif [ "$3" != "" ]; then
-         echo $usage
+         echo "$usage"
          echo "Too many arguments to dir-alias ('$alias_name').  Any command passed in must be quoted."
          return 1
       fi
@@ -108,7 +109,7 @@ dir-alias() {
 
    # Define and export the shell variable if a directory name is associated with the command.
    if [ "$dirname" != "" ]; then
-      eval export $alias_name='"$dirname"' # Quoted to handle spaces in dir names.
+      eval export "$alias_name"='"$dirname"' # Quoted to handle spaces in dir names.
    fi
 }
 
@@ -118,9 +119,11 @@ show-dir-aliases() {
    # Sort and show the list of directory aliases.  Any which shadow existing
    # commands (other than shell functions and ordinary aliases) are also marked
    # with a asterisk after the alias name.
+   local info_strings info_vars sorted
 
    # Get an array of all the info variables set for dir-alias aliases.
    eval 'info_vars=(${!'"$DIR_ALIAS_PREFIX"'@})'
+   #info_vars=($(compgen -v "$DIR_ALIAS_PREFIX")) # This also works to set info_vars.
    info_strings=()
    for i in "${info_vars[@]}"; do
       info_strings+=("$(eval "echo \$$i")")
@@ -130,7 +133,7 @@ show-dir-aliases() {
 
    for i in "${sorted[@]}"
    do
-      echo $i
+      echo "$i"
    done
 }
 
@@ -153,7 +156,7 @@ aliases() {
 un-dir-alias() {
    # Usage: un-dir-alias <alias-name>
 
-   unset ${DIR_ALIAS_PREFIX}$1
+   unset "${DIR_ALIAS_PREFIX}$1"
    unset -f "$1"
    unset "$1"
 }
