@@ -63,7 +63,7 @@ examples here also take argments.
    demo a b # Prints out "first arg is a and second arg is b".
 
    # A dir-alias that acts an like ordinary Bash alias, on the rest of the command line.
-   dir-alias ls -c "ls -a \$@"
+   dir-alias ls -c '/bin/ls -a "$@"'
 
 To display all the aliases defined with `dir-alias` you can type `dir-alias`
 with no arguments.  The command will print out all the aliases defined by

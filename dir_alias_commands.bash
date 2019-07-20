@@ -94,16 +94,17 @@ dir-alias() {
    fi
 
    # Define and export the shell function.  Info is stored in variables with
-   # prefix $DIR_ALIAS_PREFIX because Bash cannot export arrays.
+   # prefix $DIR_ALIAS_PREFIX because Bash cannot export arrays.  Weird quoting is to get single quotes
+   # in the output around directories and commands.
    if [ "$dirname" == "" ]; then
       eval "$alias_name() { $cmd; }" # Define shell fun with given name.
-      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -c \"$cmd\""'
+      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -c '\''$cmd'\''"'
    elif [ "$cmd" == "" ]; then
       eval "$alias_name() { cd \"$dirname\"; }" # Define shell fun with the given name.
-      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- \"$dirname\""'
+      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- '\''$dirname'\''"'
    else
       eval "$alias_name() { cd \"$dirname\"; $cmd; }" # Define shell fun with given name.
-      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- \"$dirname\" -c \"$cmd\""'
+      eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- '\''$dirname'\'' -c '\''$cmd'\''"'
    fi
    export -f "$alias_name" # Export the function.
 
