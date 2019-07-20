@@ -24,14 +24,14 @@ The `dir-alias` command:
 
 * Optionally takes an arbitrary command string after `-c` to execute after
   performing the directory change.  (When a command is passed in the directory
-  argument is optional.  The passed-in command can optionally take its own
-  arguments.)
+  argument is optional.  A passed-in command can optionally take its own
+  command-line arguments.)
 
 * Exports the function and variable so they can be used in shell scripts and
   subshells.
 
-* Allows the use of previously-defined directory-alias shell variables in the
-  definition of new ones.
+* Allows the use of previously-defined dir-alias shell variables and functions
+  in the definition of new ones.
 
 Usage
 -----
