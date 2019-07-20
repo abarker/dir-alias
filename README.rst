@@ -38,7 +38,7 @@ Usage
 
 Here is a basic `dir-alias` usage:
 
-.. code-block:: bash
+.. code-block:: sh
 
    dir_alias proj ~/programming/my_project/proj_dir # Simple directory alias.
 
@@ -50,7 +50,7 @@ Here is a basic `dir-alias` usage:
 
 This is a `dir-alias` command with an optional command-string to execute after the `cd`:
 
-.. code-block:: bash
+.. code-block:: sh
 
    dir_alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory.'"
 
@@ -64,7 +64,7 @@ aliases in that they are not assocated with a directory and so do not perform a
 `cd` operation automatically.  No shell variable is set in these cases.  The
 examples here also take argments.
 
-.. code-block:: bash
+.. code-block:: sh
 
    dir-alias demo -c "echo first arg is \$1 and second arg is \$2"
 
@@ -91,7 +91,7 @@ Setup
 Just clone this repo or copy the file `dir_alias_commands.bash` somewhere and
 source it in your `~/.bashrc` like this:
 
-.. code-block:: bash
+.. code-block:: sh
 
    source dir_alias_commands.bash
 
