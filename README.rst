@@ -49,7 +49,12 @@ This is a `dir-alias` command with an optional command-string to execute after t
 
 .. code-block:: bash
 
-   dir_alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory'"
+   dir_alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory.'"
+
+This command just echos `You are in ~/tmp directory.` after the `my_tmp`
+command first changes to the `~/tmp` directory.  Be careful not to introduce an
+infinite recursion in your commands by using the alias function in its own
+definition.
 
 Finally, here are some `dir-alias` commands that work similar to regular Bash
 aliases in that they are not assocated with a directory and so do not perform a
