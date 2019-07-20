@@ -3,6 +3,9 @@
 dir-alias
 #########
 
+**dir-alias** - create a shell function to go to a directory and a shell variable
+to access its pathname
+
 Define fancier Bash aliases for commonly-used directories.  These do not
 conflict with ordinary Bash aliases except that only one can use any particular
 alias name.  This script makes use of the fact that functions and variables in
