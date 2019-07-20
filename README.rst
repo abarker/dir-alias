@@ -16,17 +16,18 @@ The `dir-alias` command:
 
 * Defines the alias name as a shell function to `cd` to the directory.
 
-* Defines the alias name as a shell variable to access the directory-path
+* Also defines the alias name as a shell variable to access the directory-path
   string easily.
 
 * Optionally takes an arbitrary command string after `-c` to execute after
-  performing the directory change.  (The directory argument is optional when a
-  command is passed in.  The passed-in command can optionally take its own
+  performing the directory change.  (When a command is passed in the directory
+  argument is optional.  The passed-in command can optionally take its own
   arguments.)
 
-* Exports the function and variable so they can be used in shell scripts.
+* Exports the function and variable so they can be used in shell scripts and
+  subshells.
 
-* Allows the use of previously-defined directory-alias variables in the
+* Allows the use of previously-defined directory-alias shell variables in the
   definition of new ones.
 
 Usage
