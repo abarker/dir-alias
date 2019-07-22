@@ -91,8 +91,9 @@ directory aliases use `un-dir-alias <alias-name>`.
 Setup
 -----
 
-Just clone this repo or copy the file `dir_alias_commands.bash` somewhere and
-source it in your `~/.bashrc` like this:
+Just clone this repo (`git clone https://github.com/abarker/dir-alias`) or copy
+the file `dir_alias_commands.bash` somewhere and then source that file in your
+`~/.bashrc` like this:
 
 .. code-block:: sh
 
@@ -100,4 +101,7 @@ source it in your `~/.bashrc` like this:
 
 After that command you can use `dir-alias` in your `.bashrc` as well as in your
 interactive shells.
+
+Since the functions and variables are exported the command could also be used
+in your `.profile`.
 
