@@ -100,10 +100,10 @@ dir-alias() {
       eval "$alias_name() { $cmd; }" # Define shell fun with given name.
       eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -c '\''$cmd'\''"'
    elif [ "$cmd" == "" ]; then
-      eval "$alias_name() { cd \"$dirname\"; }" # Define shell fun with the given name.
+      eval "$alias_name() { cd \"$dirname\" || return 1; }" # Define shell fun with the given name.
       eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- '\''$dirname'\''"'
    else
-      eval "$alias_name() { cd \"$dirname\"; $cmd; }" # Define shell fun with given name.
+      eval "$alias_name() { cd \"$dirname\" || return 1; $cmd; }" # Define shell fun with given name.
       eval 'export ${DIR_ALIAS_PREFIX}$alias_name="${alias_name}${hide_indicator} -- '\''$dirname'\'' -c '\''$cmd'\''"'
    fi
    export -f "$alias_name" # Export the function.
