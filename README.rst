@@ -23,9 +23,12 @@ The `dir-alias` command:
   string easily.
 
 * Optionally takes an arbitrary command string after `-c` to execute after
-  performing the directory change.  (When a command is passed in the directory
-  argument is optional.  A passed-in command can optionally take its own
-  command-line arguments.)
+  performing the directory change.  That command is only executed if the `cd`
+  command returns success.  A passed-in command can optionally take its own
+  command-line arguments (see below).
+
+* When a command is passed with `-c` the directory argument is optional.  When
+  there is no directory argument the passed-in command is always executed.
 
 * Exports the function and variable so they can be used in shell scripts and
   subshells.
