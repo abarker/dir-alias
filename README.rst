@@ -25,7 +25,7 @@ The `dir-alias` command:
 * Optionally takes an arbitrary command string after `-c` to execute after
   performing the directory change.  That command is only executed if the `cd`
   command returns success.  A passed-in command can optionally take its own
-  command-line arguments (see below).
+  command-line arguments (see the example below).
 
 * When a command is passed with `-c` the directory argument is optional.  When
   there is no directory argument the passed-in command is always executed.
@@ -43,7 +43,7 @@ Here is a basic `dir-alias` usage:
 
 .. code-block:: sh
 
-   dir_alias proj ~/programming/my_project/proj_dir # Simple directory alias.
+   dir-alias proj ~/programming/my_project/proj_dir # Simple directory alias.
 
    # Now there is a shell varible proj holding the directory name:
    ls $proj # Executes an ls of the directory ~/programming/my_project/proj_dir 
@@ -55,7 +55,7 @@ This is a `dir-alias` command with an optional command-string to execute after t
 
 .. code-block:: sh
 
-   dir_alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory.'"
+   dir-alias my_tmp ~/tmp -c "echo 'You are in ~/tmp directory.'"
 
 This command just echos `You are in ~/tmp directory.` after the `my_tmp`
 command first changes to the `~/tmp` directory.  Be careful not to introduce an
@@ -78,7 +78,7 @@ examples here also take argments.
 
 To display all the aliases defined with `dir-alias` you can type `dir-alias`
 with no arguments.  The command will print out all the aliases defined by
-`dir_alias` in a neat format.  Any aliases which shadowed an existing command
+`dir-alias` in a neat format.  Any aliases which shadowed an existing command
 at the time it was defined, excluding shell functions or a regular Bash
 aliases, are marked with a ``*`` symbol after the alias name in the listing.
 
